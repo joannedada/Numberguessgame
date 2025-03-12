@@ -24,16 +24,6 @@ pipeline {
             }
         }
 
-        stage('Deploy to Tomcat') {
-            steps {
-                sshagent(['tomcat-server-credentials']) {
-                    sh """
-                    scp target/NumberGuessGame.war user@your-tomcat-server:/var/lib/tomcat9/webapps/
-                    """
-                }
-            }
-        }
-
         stage('Notify Team') {
             steps {
                 mail to: 'orezikoko@gmail.com',
