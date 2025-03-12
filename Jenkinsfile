@@ -40,4 +40,3 @@ pipeline {
                      subject: "Deployment Successful",
                      body: "The application has been successfully deployed!"
             }
-    
