@@ -41,3 +41,4 @@ pipeline {
                      body: "The application has been successfully deployed!"
             }
         }
+    }
