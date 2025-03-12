@@ -23,13 +23,5 @@ pipeline {
                 sh "${MVN_HOME} test"
             }
         }
-
-        stage('Notify Team') {
-            steps {
-                mail to: 'orezikoko@gmail.com',
-                     subject: "Deployment Successful",
-                     body: "The application has been successfully deployed!"
-            }
-        }
     }
 }
