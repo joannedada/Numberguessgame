@@ -26,7 +26,7 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 script {
-                    deploy adapters: [tomcat9(credentialsId: '671af030-f025-4134-a298-376ff732397d', path: '', url: 'http://20.234.196.160:8080/')], 
+                    deploy adapters: [tomcat9(credentialsId: '837862a1-a5b8-4c43-bd06-ee93f4f282dc', path: '', url: '/http://54.242.25.76:8080/')], 
                             contextPath: 'Numberguessgame', war: '**/*.war'
                 }
             }
