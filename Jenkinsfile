@@ -46,21 +46,27 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            slackSend (
-                channel: '@U08AU78NX2B', 
-                color: 'good',
-                message: "Build Successful: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
-            )
+   post {
+    success {
+        script {
+            sh """
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{"text": "Build Successful: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"}' \
+            https://hooks.slack.com/services/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
+            """
         }
-        failure {
-            slackSend (
-                channel: '@U08AU78NX2B', 
-                color: 'danger', 
-                message: "Build Failed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
-            )
+    }
+    failure {
+        script {
+            sh """
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{"text": "Build Failed: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"}' \
+            https://hooks.slack.com/services/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
+            """
         }
+    }
+}
+
         always {
             echo 'This will always run after the stages, regardless of success or failure.'
         }
