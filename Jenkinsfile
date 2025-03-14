@@ -50,7 +50,8 @@ pipeline {
         success {
             slackSend (
                 channel: '@U08AU78NX2B', 
-                color: 'good', 
+                color: 'good',
+                baseUrl: 'https://hooks.slack.com/services/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'
                 message: "Build Successful: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
             )
         }
