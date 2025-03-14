@@ -44,8 +44,11 @@ pipeline {
                 }
             }
         }
-     always {
+    }
+
+    post {
+        always {
             echo 'This will always run after the stages, regardless of success or failure.'
-     }
+        }
     }
 }
