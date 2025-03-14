@@ -56,6 +56,7 @@ pipeline {
                 }
             }
         }
+       stage('Send slack notification') {
         post {
          success {
              slackSend (
