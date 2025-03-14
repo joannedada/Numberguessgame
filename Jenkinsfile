@@ -2,7 +2,9 @@ pipeline {
     agent any
 
     environment {
-        MVN_HOME = '/usr/bin/mvn'  // Adjust if necessary
+        MVN_HOME = '/usr/bin/mvn' 
+        SONAR_TOKEN = credentials('sonar-token')  
+        SONARQUBE_URL = 'http://40.113.104.107:9000' 
     }
 
     stages {
@@ -26,11 +28,25 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-       withSonarQubeEnv('SonarQube') {
-           sh 'mvn sonar:sonar'
-       }
-   }
-}
+                withSonarQubeEnv('SonarQube') {  // Replace 'SonarQube' with the name of your SonarQube installation in Jenkins
+                    sh """
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=your_project_key \
+                        -Dsonar.host.url=${SONARQUBE_URL} \
+                        -Dsonar.login=${SONAR_TOKEN}
+                    """
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                // This waits for the SonarQube Quality Gate status
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         stage('Deploy to Tomcat') {
             steps {
                 script {
