@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        MVN_HOME = '/usr/bin/mvn' 
-        SONAR_TOKEN = credentials('sonar-token')  
+        MVN_HOME = '/usr/bin/mvn'  
         SONARQUBE_URL = 'http://40.113.104.107:9000' 
     }
 
@@ -33,7 +32,6 @@ pipeline {
                         mvn sonar:sonar \
                         -Dsonar.projectKey=your_project_key \
                         -Dsonar.host.url=${SONARQUBE_URL} \
-                        -Dsonar.login=${SONAR_TOKEN}
                     """
                 }
             }
@@ -42,7 +40,7 @@ pipeline {
         stage('Quality Gate') {
             steps {
                 // This waits for the SonarQube Quality Gate status
-                timeout(time: 1, unit: 'HOURS') {
+                timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
