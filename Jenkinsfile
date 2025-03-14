@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        MVN_HOME = '/usr/bin/mvn'  
-        SONARQUBE_URL = 'http://40.113.104.107:9000' 
+        SONARQUBE_URL = 'http://40.113.104.107:9000'
     }
 
     stages {
@@ -15,39 +14,41 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                sh "${MVN_HOME} clean package"
+                sh 'mvn clean package'
             }
         }
 
         stage('Run Unit Tests') {
             steps {
-                sh "${MVN_HOME} test"
+                sh 'mvn test'
             }
         }
-        
+
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh """
                         mvn sonar:sonar \
                         -Dsonar.projectKey=your_project_key \
-                        -Dsonar.host.url=${SONARQUBE_URL} \
+                        -Dsonar.host.url=${SONARQUBE_URL}
                     """
                 }
             }
         }
+
         stage('Quality Gate') {
-           steps {
-           script {
-           timeout(time: 2, unit: 'MINUTES') {
-               def qg = waitForQualityGate()
-               if (qg.status != 'OK') {
-                   error "Pipeline failed due to SonarQube quality gate!"
-               }
-           }
-       }
-   }
-}
+            steps {
+                script {
+                    timeout(time: 2, unit: 'MINUTES') {
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline failed due to SonarQube quality gate!"
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Deploy to Tomcat') {
             steps {
                 script {
@@ -56,26 +57,26 @@ pipeline {
                 }
             }
         }
-       stage('Send slack notification') {
-        post {
-         success {
-             slackSend (
+    }
+
+    post {
+        success {
+            slackSend (
                 channel: '@U08AU78NX2B', 
                 color: 'good', 
                 message: "Build Successful: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
             )
         }
-         failure {
-               slackSend (
+        failure {
+            slackSend (
                 channel: '@U08AU78NX2B', 
                 color: 'danger', 
                 message: "Build Failed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
             )
         }
-         always {
-                echo 'This will always run after the stages, regardless of success or failure.'
+        always {
+            echo 'This will always run after the stages, regardless of success or failure.'
         }
     }
 }
-}
-}
+
