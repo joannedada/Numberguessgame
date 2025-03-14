@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SONARQUBE_URL = 'http://40.113.104.107:9000'
+        SONARQUBE_URL = 'http://54.160.192.105:9000'
     }
 
     stages {
@@ -39,7 +39,7 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 script {
-                    deploy adapters: [tomcat9(credentialsId: '671af030-f025-4134-a298-376ff732397d', path: '', url: 'http://20.234.196.160:8080/')], 
+                    deploy adapters: [tomcat9(credentialsId: 'sonartoken', path: '', url: 'http://54.242.25.76:8080/')], 
                             contextPath: 'Numberguessgame', war: '**/*.war'
                 }
             }
