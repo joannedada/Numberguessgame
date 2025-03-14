@@ -56,7 +56,7 @@ pipeline {
                 }
             }
         }
-     post {
+        post {
          success {
              slackSend (
                 channel: '@U08AU78NX2B', 
