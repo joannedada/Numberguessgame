@@ -56,5 +56,13 @@ pipeline {
                 }
             }
         }
+            post {
+       success {
+           slackSend channel: 'U08AU78NX2B', message: "✅ Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+       }
+       failure {
+           slackSend channel: 'U08AU78NX2B', message: "❌ Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+           }
+        }
     }
 }
