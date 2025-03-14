@@ -27,7 +27,7 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {  // Replace 'SonarQube' with the name of your SonarQube installation in Jenkins
+                withSonarQubeEnv('SonarQube') {
                     sh """
                         mvn sonar:sonar \
                         -Dsonar.projectKey=your_project_key \
@@ -39,8 +39,7 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                // This waits for the SonarQube Quality Gate status
-                timeout(time: 5, unit: 'MINUTES') {
+                timeout(time: 30, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
