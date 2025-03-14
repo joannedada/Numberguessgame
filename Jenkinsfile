@@ -46,29 +46,29 @@ pipeline {
         }
     }
 
-  post {
-    success {
-        script {
-            def slackWebhook = credentials('slack-webhook-url')
-            sh """
-            curl -X POST -H 'Content-type: application/json' \
-            --data '{"text": "Build Successful: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"}' \
-            ${slackWebhook}
-            """
+    post {
+        success {
+            script {
+                def slackWebhook = credentials('slack-webhook-url')
+                sh """
+                curl -X POST -H 'Content-type: application/json' \
+                --data '{"text": "Build Successful: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"}' \
+                ${slackWebhook}
+                """
+            }
         }
-    }
-    failure {
-        script {
-            def slackWebhook = credentials('slack-webhook-url')
-            sh """
-            curl -X POST -H 'Content-type: application/json' \
-            --data '{"text": "Build Failed: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"}' \
-            ${slackWebhook}
-            """
+        failure {
+            script {
+                def slackWebhook = credentials('slack-webhook-url')
+                sh """
+                curl -X POST -H 'Content-type: application/json' \
+                --data '{"text": "Build Failed: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"}' \
+                ${slackWebhook}
+                """
+            }
         }
-    }
-}
-    always {
+        always {
             echo 'This will always run after the stages, regardless of success or failure.'
         }
     }
+}
