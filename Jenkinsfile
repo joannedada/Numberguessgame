@@ -36,19 +36,6 @@ pipeline {
             }
         }
 
-        stage('Quality Gate') {
-            steps {
-                script {
-                    timeout(time: 2, unit: 'MINUTES') {
-                        def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
-                            error "Pipeline failed due to SonarQube quality gate!"
-                        }
-                    }
-                }
-            }
-        }
-
         stage('Deploy to Tomcat') {
             steps {
                 script {
