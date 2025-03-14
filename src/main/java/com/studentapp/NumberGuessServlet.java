@@ -46,4 +46,4 @@ public class NumberGuessServlet extends HttpServlet {
         }
         out.println("<a href='guess'>Play Again</a>");
     }
-}
+}.
