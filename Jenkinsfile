@@ -46,22 +46,24 @@ pipeline {
         }
     }
 
-   post {
+  post {
     success {
         script {
+            def slackWebhook = credentials('slack-webhook-url')
             sh """
             curl -X POST -H 'Content-type: application/json' \
             --data '{"text": "Build Successful: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"}' \
-            https://hooks.slack.com/services/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
+            ${slackWebhook}
             """
         }
     }
     failure {
         script {
+            def slackWebhook = credentials('slack-webhook-url')
             sh """
             curl -X POST -H 'Content-type: application/json' \
             --data '{"text": "Build Failed: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})"}' \
-            https://hooks.slack.com/services/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
+            ${slackWebhook}
             """
         }
     }
