@@ -51,6 +51,11 @@ pipeline {
             emailext subject: "Jenkins Build Success: ${env.JOB_NAME}",
                      body: "Build #${env.BUILD_NUMBER} was successful.\nCheck the details at: ${env.BUILD_URL}",
                      to: "orezikoko@gmail.com"
+                     replyTo: "joanneobodoagwu@gmail.com",
+                     recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+                     mimeType: "text/html",
+                     from: "joanneobodoagwu@gmail.com",
+                     credentialsId: "emailcred" // 🔹 Use stored credentials
         }
         failure {
             emailext subject: "❌ Jenkins Build Failed: ${env.JOB_NAME}",
