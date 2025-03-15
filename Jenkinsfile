@@ -50,5 +50,29 @@ pipeline {
         always {
             echo 'This will always run after the stages, regardless of success or failure.'
         }
+        success {
+            emailext subject: "Jenkins Build Success: ${env.JOB_NAME}",
+                     body: "Build #${env.BUILD_NUMBER} was successful.\nCheck the details at: ${env.BUILD_URL}",
+                     to: "orezikoko@gmail.com,dayo.adeleke@aypumpin.com,ogheneyole.uwhe1929@myflemingcollegetoronto.ca"
+        }
+        failure {
+            emailext subject: "❌ Jenkins Build Failed: ${env.JOB_NAME}",
+                     body: """
+                        🚨 Build #${env.BUILD_NUMBER} has failed!
+                        🔍 Job: ${env.JOB_NAME}
+                        🔗 Check logs: ${env.BUILD_URL}
+                        Please investigate ASAP.
+                     """,
+                     to: "orezikoko@gmail.com,dayo.adeleke@aypumpin.com,ogheneyole.uwhe1929@myflemingcollegetoronto.ca"
+        }
+        always {
+            emailext subject: "Jenkins Build Completed: ${env.JOB_NAME}",
+                     body: """
+                        Build #${env.BUILD_NUMBER} has finished.
+                        Status: ${currentBuild.result}
+                        🔗 Logs: ${env.BUILD_URL}
+                     """,
+                     to: "user1@example.com, user2@example.com, qa@example.com"
+        }
     }
 }
