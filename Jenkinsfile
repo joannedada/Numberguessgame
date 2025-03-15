@@ -1,6 +1,10 @@
 pipeline {
     agent any
-
+    
+    triggers {
+        githubPush() // 🔹 This triggers a build on GitHub push
+    }
+    
     environment {
         SONARQUBE_URL = 'http://54.160.192.105:9000'
     }
