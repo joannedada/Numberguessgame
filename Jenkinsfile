@@ -47,9 +47,6 @@ pipeline {
     }
 
     post {
-        always {
-            echo 'This will always run after the stages, regardless of success or failure.'
-        }
         success {
             emailext subject: "Jenkins Build Success: ${env.JOB_NAME}",
                      body: "Build #${env.BUILD_NUMBER} was successful.\nCheck the details at: ${env.BUILD_URL}",
