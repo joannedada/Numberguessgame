@@ -50,7 +50,7 @@ pipeline {
         success {
             emailext subject: "Jenkins Build Success: ${env.JOB_NAME}",
                      body: "Build #${env.BUILD_NUMBER} was successful.\nCheck the details at: ${env.BUILD_URL}",
-                     to: "orezikoko@gmail.com"
+                     to: "orezikoko@gmail.com",
                      replyTo: "joanneobodoagwu@gmail.com",
                      recipientProviders: [[$class: 'DevelopersRecipientProvider']],
                      mimeType: "text/html",
