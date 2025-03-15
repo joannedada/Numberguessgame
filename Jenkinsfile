@@ -69,7 +69,7 @@ pipeline {
                         Status: ${currentBuild.result}
                         🔗 Logs: ${env.BUILD_URL}
                      """,
-                     to: "user1@example.com, user2@example.com, qa@example.com"
+                     to: "orezikoko@gmail.com,dayo.adeleke@aypumpin.com,ogheneyole.uwhe1929@myflemingcollegetoronto.ca"
         }
     }
 }
