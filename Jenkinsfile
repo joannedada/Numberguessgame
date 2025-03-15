@@ -50,7 +50,7 @@ pipeline {
         success {
             emailext subject: "Jenkins Build Success: ${env.JOB_NAME}",
                      body: "Build #${env.BUILD_NUMBER} was successful.\nCheck the details at: ${env.BUILD_URL}",
-                     to: "orezikoko@gmail.com,dayo.adeleke@aypumpin.com,ogheneyole.uwhe1929@myflemingcollegetoronto.ca"
+                     to: "orezikoko@gmail.com"
         }
         failure {
             emailext subject: "❌ Jenkins Build Failed: ${env.JOB_NAME}",
@@ -60,7 +60,7 @@ pipeline {
                         🔗 Check logs: ${env.BUILD_URL}
                         Please investigate ASAP.
                      """,
-                     to: "orezikoko@gmail.com,dayo.adeleke@aypumpin.com,ogheneyole.uwhe1929@myflemingcollegetoronto.ca"
+                     to: "orezikoko@gmail.com"
         }
         always {
             emailext subject: "Jenkins Build Completed: ${env.JOB_NAME}",
@@ -69,7 +69,7 @@ pipeline {
                         Status: ${currentBuild.result}
                         🔗 Logs: ${env.BUILD_URL}
                      """,
-                     to: "orezikoko@gmail.com,dayo.adeleke@aypumpin.com,ogheneyole.uwhe1929@myflemingcollegetoronto.ca"
+                     to: "orezikoko@gmail.com"
         }
     }
 }
