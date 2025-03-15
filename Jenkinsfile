@@ -63,6 +63,9 @@ pipeline {
                      to: "orezikoko@gmail.com"
         }
         always {
+            script {
+            echo "🔍 DEBUG: Sending email..."
+        }
             emailext subject: "Jenkins Build Completed: ${env.JOB_NAME}",
                      body: """
                         Build #${env.BUILD_NUMBER} has finished.
