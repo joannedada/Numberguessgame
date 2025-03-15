@@ -13,7 +13,17 @@ public class NumberGuessServlet extends HttpServlet {
     private int targetNumber;
 
     public void init() throws ServletException {
-        targetNumber = new Random().nextInt(100) + 1;
+        targetNumber = new Random().nextInt(100) + 1; // Random number between 1-100
+    }
+
+    // Added setter method for controlled testing
+    public void setTargetNumber(int number) {
+        this.targetNumber = number;
+    }
+
+    // Added getter method for debugging (optional)
+    public int getTargetNumber() {
+        return this.targetNumber;
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,6 +41,7 @@ public class NumberGuessServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+
         try {
             int guess = Integer.parseInt(request.getParameter("guess"));
             if (guess < targetNumber) {
@@ -39,11 +50,12 @@ public class NumberGuessServlet extends HttpServlet {
                 out.println("<h2>Your guess is too high. Try again!</h2>");
             } else {
                 out.println("<h2>Congratulations! You guessed the number!</h2>");
-                targetNumber = new Random().nextInt(100) + 1; // Reset game
+                targetNumber = new Random().nextInt(100) + 1; // Reset game after a correct guess
             }
         } catch (NumberFormatException e) {
             out.println("<h2>Invalid input. Please enter a valid number.</h2>");
         }
+
         out.println("<a href='guess'>Play Again</a>");
     }
 }
