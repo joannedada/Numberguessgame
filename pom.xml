@@ -20,19 +20,20 @@
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
-
+             
+         <!-- Mockito core -->
+         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.16.0</version>
+            <scope>test</scope>
+        </dependency>
+             
         <!-- JUnit for Testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
-         <!-- Mockito Core -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -56,6 +57,19 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
             </plugin>
+
+            <!-- Maven Surefire Plugin to generate JUnit Test Reports -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M7</version>
+                <configuration>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
+
+
+<!-- Na we dey Avenge -->
