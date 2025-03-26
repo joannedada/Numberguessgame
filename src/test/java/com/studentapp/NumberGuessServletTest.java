@@ -43,10 +43,11 @@ public class NumberGuessServletTest {
 
     @Test
     public void testCorrectGuess() throws Exception {
+
         servlet.setTargetNumber(42); // Setting target number for testing
         Mockito.when(request.getParameter("guess")).thenReturn("42"); // Correct guess
+
         servlet.doPost(request, response);
         assertTrue(responseWriter.toString().contains("Congratulations! You guessed the number!"));
     }
 }
-
