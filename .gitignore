@@ -1,0 +1,33 @@
+# Ignore compiled Java files
+*.class
+*.jar
+*.war
+
+# Ignore Maven target folder
+target/
+
+# Ignore environment variables & credentials
+.env
+*.key
+*.pem
+
+# Ignore IntelliJ IDEA, Eclipse, and VS Code config files
+.idea/
+.vscode/
+*.iml
+
+# Ignore logs & temp files
+*.log
+*.tmp
+.DS_Store
+
+# Ignore Docker build files
+docker-compose.override.yml
+
+# Ignore SonarQube & other reports
+.trivy/
+sonar-report.xml
+
+# Ignore sensitive config files
+config.yaml
+credentials.json
